@@ -3,11 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="author" content="Team XXX">
-        <meta name="keywords" content="World War II, WWII, Battles">
-        <meta name="description" content="Website about World War II - Battles">
+        <meta name="keywords" content="World War II, WWII, Technologies">
+        <meta name="description" content="Website about World War II - Technologies">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Battles of World War II</title>
+        <title>Technologies of World War II</title>
+
+        <!-- Preload & load local CSS -->
+        <link rel="preload" href="../css/global.css" as="style">
+        <link rel="stylesheet" href="../css/global.css">
 
         <!-- Bootstrap CSS -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -45,33 +49,33 @@
         </header>
 
         <div class="container mt-4">
-            <h2>World War II Battles</h2>
-            <p>Explore the major battles of World War II. From the Battle of Stalingrad to the Normandy landings, these battles shaped the course of the war.</p>
+            <h2>Technologies of World War II</h2>
+            <p>World War II spurred the development of advanced technologies that changed the nature of warfare, including jet engines, atomic bombs, and radar systems.</p>
 
-            <div id="battles-list">
+            <div id="technologies-list">
                 <!-- This will be dynamically loaded by the server (Node.js with Neo4j) -->
             </div>
         </div>
 
         <script>
-            // Fetch the battles data from the server and display it
-            fetch('/battles')
+            // Fetch the technologies data from the server and display it
+            fetch('/technologies')
                 .then(response => response.json())
                 .then(data => {
-                    const battlesList = document.getElementById('battles-list');
-                    data.forEach(battle => {
-                        const battleItem = document.createElement('div');
-                        battleItem.classList.add('card', 'mb-3');
-                        battleItem.innerHTML = `
+                    const technologiesList = document.getElementById('technologies-list');
+                    data.forEach(tech => {
+                        const techItem = document.createElement('div');
+                        techItem.classList.add('card', 'mb-3');
+                        techItem.innerHTML = `
                             <div class="card-body">
-                                <h5 class="card-title">${battle.name}</h5>
-                                <p class="card-text">Year: ${battle.year}</p>
+                                <h5 class="card-title">${tech.name}</h5>
+                                <p class="card-text">Developed in: ${tech.year}</p>
                             </div>
                         `;
-                        battlesList.appendChild(battleItem);
+                        technologiesList.appendChild(techItem);
                     });
                 })
-                .catch(error => console.error('Error fetching battles:', error));
+                .catch(error => console.error('Error fetching technologies:', error));
         </script>
     </body>
 </html>
