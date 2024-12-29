@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Team XXX">
+        <meta name="keywords" content="World War II, WWII, Battles">
+        <meta name="description" content="Website about World War II - Battles">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Battles of World War II</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- JQuery, Popper.js, Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <header class="bg-dark text-white p-4">
+            <div class="container">
+                <h1 class="display-4">World War II</h1>
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <a class="navbar-brand" href="/">Home</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="leaders.html">Leaders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="battles.html">Battles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="technologies.html">Technologies</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <div class="container mt-4">
+            <h2>World War II Battles</h2>
+            <p>Explore the major battles of World War II. From the Battle of Stalingrad to the Normandy landings, these battles shaped the course of the war.</p>
+
+            <div id="battles-list">
+                <!-- This will be dynamically loaded by the server (Node.js with Neo4j) -->
+            </div>
+        </div>
+
+        <script>
+            // Fetch the battles data from the server and display it
+            fetch('/battles')
+                .then(response => response.json())
+                .then(data => {
+                    const battlesList = document.getElementById('battles-list');
+                    data.forEach(battle => {
+                        const battleItem = document.createElement('div');
+                        battleItem.classList.add('card', 'mb-3');
+                        battleItem.innerHTML = `
+                            <div class="card-body">
+                                <h5 class="card-title">${battle.name}</h5>
+                                <p class="card-text">Year: ${battle.year}</p>
+                            </div>
+                        `;
+                        battlesList.appendChild(battleItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching battles:', error));
+        </script>
+    </body>
+</html>
