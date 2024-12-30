@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="author" content="Equipo XXX">
-        <meta name="keywords" content="Battles, WWII">
-        <meta name="description" content="Major battles of World War II">
+        <meta name="keywords" content="Alliances, WWII">
+        <meta name="description" content="Explore las alianzas durante la Segunda Guerra Mundial">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>World War II - Battles</title>
+        <title>World War II - Alliances</title>
 
         <link rel="preload" href="css/global.css" as="style">
         <link rel="stylesheet" href="css/global.css">
@@ -23,9 +22,9 @@
     <body>
         <header class="bg-dark text-white p-4">
             <div class="container">
-                <h1 class="display-4">Major Battles of World War II</h1>
+                <h1 class="display-4">Alliances</h1>
                 <nav class="navbar navbar-expand-lg navbar-dark">
-                    <a class="navbar-brand" href="../index.html">Home</a>
+                    <a class="navbar-brand" href="/">Home</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -54,39 +53,48 @@
 
         <div class="container mt-4">
             <div class="text-center mb-4">
-                <h2>Key Battles of World War II</h2>
-                <p>Explore the significant battles that determined the outcome of the war.</p>
+                <h2>Explore the Alliances of World War II</h2>
+                <p>Discover the powerful alliances formed during the war, such as the Axis and Allies, and their role in shaping the outcome of WWII.</p>
             </div>
     
-            <div class="row" id="battle-cards">
-                <!-- Dynamic battle cards will be inserted here -->
+            <div class="row" id="alliance-cards">
+                <!-- Dynamic alliance cards will be inserted here -->
             </div>
         </div>
     
         <script>
-            // Fetch battle data from the server
-            fetch('/battles')
+            // Fetch alliance data from the server
+            fetch('/alliances')
                 .then(response => response.json())
-                .then(battles => {
-                    const battleCardsContainer = document.getElementById('battle-cards');
-            
-                    battles.forEach(battle => {
-                        const battleCard = document.createElement('div');
-                        battleCard.classList.add('col-md-4');
-                        battleCard.innerHTML = `
+                .then(alliances => {
+                    const allianceCardsContainer = document.getElementById('alliance-cards');
+
+                    const allianceMap = {};
+                    alliances.forEach(alliance => {
+                        if (!allianceMap[alliance.alliance]) {
+                            allianceMap[alliance.alliance] = [];
+                        }
+                        allianceMap[alliance.alliance].push(alliance.country);
+                    });
+        
+                    for (const allianceName in allianceMap) {
+                        const countries = allianceMap[allianceName];
+                        const allianceCard = document.createElement('div');
+                        allianceCard.classList.add('col-md-4');
+                        allianceCard.innerHTML = `
                             <div class="card mb-4 shadow-sm">
-                                <img src="images/battle-placeholder.jpg" class="card-img-top" alt="${battle.name}">
+                                <img src="images/alliances.jpg" class="card-img-top" alt="${allianceName}">
                                 <div class="card-body">
-                                    <h5 class="card-title">${battle.name}</h5>
-                                    <p class="card-text">Year: ${battle.year}</p>
-                                    <a href="/battles/${battle.name.toLowerCase().replace(/\s+/g, '')}" class="btn btn-primary">Learn more</a>
+                                    <h5 class="card-title">${allianceName}</h5>
+                                    <p class="card-text">Countries in this alliance: ${countries.join(', ')}</p>
+                                    <a href="/alliances/${allianceName.toLowerCase().replace(/\s+/g, '')}" class="btn btn-primary">Learn more</a>
                                 </div>
                             </div>
                         `;
-                        battleCardsContainer.appendChild(battleCard);
-                    });
+                        allianceCardsContainer.appendChild(allianceCard);
+                    }
                 })
-                .catch(error => console.error('Error loading battle data:', error));
+                .catch(error => console.error('Error loading alliance data:', error));
         </script>        
     </body>
 </html>

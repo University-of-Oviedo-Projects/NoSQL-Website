@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="es">
     <head>
         <meta charset="UTF-8">
-        <meta name="author" content="Team XXX">
-        <meta name="keywords" content="World War II, WWII">
-        <meta name="description" content="Website about World War II - Leaders">
+        <meta name="author" content="Equipo XXX">
+        <meta name="keywords" content="Leaders, WWII">
+        <meta name="description" content="Leaders during World War II">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>World War II - Leaders</title>
 
-        <title>Leaders of World War II</title>
+        <link rel="preload" href="css/global.css" as="style">
+        <link rel="stylesheet" href="css/global.css">
+        <link rel="preload" href="css/index.css" as="style">
+        <link rel="stylesheet" href="css/index.css">
 
-        <!-- Preload & load local CSS -->
-        <link rel="preload" href="../css/global.css" as="style">
-        <link rel="stylesheet" href="../css/global.css">
-
-        <!-- Bootstrap CSS -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- JQuery, Popper.js, Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -25,14 +23,17 @@
     <body>
         <header class="bg-dark text-white p-4">
             <div class="container">
-                <h1 class="display-4">World War II</h1>
+                <h1 class="display-4">Leaders of World War II</h1>
                 <nav class="navbar navbar-expand-lg navbar-dark">
-                    <a class="navbar-brand" href="/">Home</a>
+                    <a class="navbar-brand" href="../index.html">Home</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="countries.html">Countries</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="leaders.html">Leaders</a>
                             </li>
@@ -42,40 +43,50 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="technologies.html">Technologies</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="alliances.html">Alliances</a>
+                            </li>
                         </ul>
                     </div>
-                </nav>
-            </div>
+                </div>
+            </nav>
         </header>
 
         <div class="container mt-4">
-            <h2>World War II Leaders</h2>
-            <p>Explore the prominent leaders who shaped the events of World War II. From Adolf Hitler to Winston Churchill, these figures played crucial roles in the global conflict.</p>
-
-            <div id="leaders-list">
-                <!-- This will be dynamically loaded by the server (Node.js with Neo4j) -->
+            <div class="text-center mb-4">
+                <h2>Key Leaders in World War II</h2>
+                <p>Explore the key figures who played significant roles in shaping the course of the war.</p>
+            </div>
+    
+            <div class="row" id="leader-cards">
+                <!-- Las tarjetas de los líderes se insertarán aquí dinámicamente -->
             </div>
         </div>
-
+    
         <script>
-            // Fetch the leaders data from the server and display it
+            // Fetch leader data from the server
             fetch('/leaders')
                 .then(response => response.json())
-                .then(data => {
-                    const leadersList = document.getElementById('leaders-list');
-                    data.forEach(leader => {
-                        const leaderItem = document.createElement('div');
-                        leaderItem.classList.add('card', 'mb-3');
-                        leaderItem.innerHTML = `
-                            <div class="card-body">
-                                <h5 class="card-title">${leader.name}</h5>
-                                <p class="card-text">Born in: ${leader.birth_year}</p>
+                .then(leaders => {
+                    const leaderCardsContainer = document.getElementById('leader-cards');
+            
+                    leaders.forEach(leader => {
+                        const leaderCard = document.createElement('div');
+                        leaderCard.classList.add('col-md-4');
+                        leaderCard.innerHTML = `
+                            <div class="card mb-4 shadow-sm">
+                                <img src="images/leader-placeholder.jpg" class="card-img-top" alt="${leader.name}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${leader.name}</h5>
+                                    <p class="card-text">Born: ${leader.birthYear}</p>
+                                    <a href="/leaders/${leader.name.toLowerCase().replace(/\s+/g, '')}" class="btn btn-primary">Learn more</a>
+                                </div>
                             </div>
                         `;
-                        leadersList.appendChild(leaderItem);
+                        leaderCardsContainer.appendChild(leaderCard);
                     });
                 })
-                .catch(error => console.error('Error fetching leaders:', error));
-        </script>
+                .catch(error => console.error('Error loading leader data:', error));
+        </script>        
     </body>
 </html>

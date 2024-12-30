@@ -4,10 +4,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="author" content="Equipo XXX">
-        <meta name="keywords" content="Battles, WWII">
-        <meta name="description" content="Major battles of World War II">
+        <meta name="keywords" content="Countries, WWII">
+        <meta name="description" content="Countries involved in World War II">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>World War II - Battles</title>
+        <title>World War II - Countries</title>
 
         <link rel="preload" href="css/global.css" as="style">
         <link rel="stylesheet" href="css/global.css">
@@ -23,7 +23,7 @@
     <body>
         <header class="bg-dark text-white p-4">
             <div class="container">
-                <h1 class="display-4">Major Battles of World War II</h1>
+                <h1 class="display-4">Countries of World War II</h1>
                 <nav class="navbar navbar-expand-lg navbar-dark">
                     <a class="navbar-brand" href="../index.html">Home</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,39 +54,39 @@
 
         <div class="container mt-4">
             <div class="text-center mb-4">
-                <h2>Key Battles of World War II</h2>
-                <p>Explore the significant battles that determined the outcome of the war.</p>
+                <h2>Countries in World War II</h2>
+                <p>Explore the countries that participated in the war, both in the Axis and Allies.</p>
             </div>
     
-            <div class="row" id="battle-cards">
-                <!-- Dynamic battle cards will be inserted here -->
+            <div class="row" id="country-cards">
+                <!-- Dynamic country cards will be inserted here -->
             </div>
         </div>
     
         <script>
-            // Fetch battle data from the server
-            fetch('/battles')
+            // Fetch country data from the server
+            fetch('/countries')
                 .then(response => response.json())
-                .then(battles => {
-                    const battleCardsContainer = document.getElementById('battle-cards');
+                .then(countries => {
+                    const countryCardsContainer = document.getElementById('country-cards');
             
-                    battles.forEach(battle => {
-                        const battleCard = document.createElement('div');
-                        battleCard.classList.add('col-md-4');
-                        battleCard.innerHTML = `
+                    countries.forEach(country => {
+                        const countryCard = document.createElement('div');
+                        countryCard.classList.add('col-md-4');
+                        countryCard.innerHTML = `
                             <div class="card mb-4 shadow-sm">
-                                <img src="images/battle-placeholder.jpg" class="card-img-top" alt="${battle.name}">
+                                <img src="images/country-placeholder.jpg" class="card-img-top" alt="${country.name}">
                                 <div class="card-body">
-                                    <h5 class="card-title">${battle.name}</h5>
-                                    <p class="card-text">Year: ${battle.year}</p>
-                                    <a href="/battles/${battle.name.toLowerCase().replace(/\s+/g, '')}" class="btn btn-primary">Learn more</a>
+                                    <h5 class="card-title">${country.name}</h5>
+                                    <p class="card-text">Continent: ${country.continent}</p>
+                                    <a href="/countries/${country.name.toLowerCase().replace(/\s+/g, '')}" class="btn btn-primary">Learn more</a>
                                 </div>
                             </div>
                         `;
-                        battleCardsContainer.appendChild(battleCard);
+                        countryCardsContainer.appendChild(countryCard);
                     });
                 })
-                .catch(error => console.error('Error loading battle data:', error));
+                .catch(error => console.error('Error loading country data:', error));
         </script>        
     </body>
 </html>

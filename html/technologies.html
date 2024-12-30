@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="es">
     <head>
         <meta charset="UTF-8">
-        <meta name="author" content="Team XXX">
-        <meta name="keywords" content="World War II, WWII, Technologies">
-        <meta name="description" content="Website about World War II - Technologies">
+        <meta name="author" content="Equipo XXX">
+        <meta name="keywords" content="Technologies, WWII">
+        <meta name="description" content="Technologies developed during World War II">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>World War II - Technologies</title>
 
-        <title>Technologies of World War II</title>
+        <link rel="preload" href="css/global.css" as="style">
+        <link rel="stylesheet" href="css/global.css">
+        <link rel="preload" href="css/index.css" as="style">
+        <link rel="stylesheet" href="css/index.css">
 
-        <!-- Preload & load local CSS -->
-        <link rel="preload" href="../css/global.css" as="style">
-        <link rel="stylesheet" href="../css/global.css">
-
-        <!-- Bootstrap CSS -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- JQuery, Popper.js, Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -25,14 +23,17 @@
     <body>
         <header class="bg-dark text-white p-4">
             <div class="container">
-                <h1 class="display-4">World War II</h1>
+                <h1 class="display-4">Technologies of World War II</h1>
                 <nav class="navbar navbar-expand-lg navbar-dark">
-                    <a class="navbar-brand" href="/">Home</a>
+                    <a class="navbar-brand" href="../index.html">Home</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="countries.html">Countries</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="leaders.html">Leaders</a>
                             </li>
@@ -42,40 +43,50 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="technologies.html">Technologies</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="alliances.html">Alliances</a>
+                            </li>
                         </ul>
                     </div>
-                </nav>
-            </div>
+                </div>
+            </nav>
         </header>
 
         <div class="container mt-4">
-            <h2>Technologies of World War II</h2>
-            <p>World War II spurred the development of advanced technologies that changed the nature of warfare, including jet engines, atomic bombs, and radar systems.</p>
-
-            <div id="technologies-list">
-                <!-- This will be dynamically loaded by the server (Node.js with Neo4j) -->
+            <div class="text-center mb-4">
+                <h2>Key Technologies Developed During World War II</h2>
+                <p>Explore the groundbreaking technologies that shaped warfare during World War II.</p>
+            </div>
+    
+            <div class="row" id="technology-cards">
+                <!-- Las tarjetas de las tecnologías se insertarán aquí dinámicamente -->
             </div>
         </div>
-
+    
         <script>
-            // Fetch the technologies data from the server and display it
+            // Fetch technology data from the server
             fetch('/technologies')
                 .then(response => response.json())
-                .then(data => {
-                    const technologiesList = document.getElementById('technologies-list');
-                    data.forEach(tech => {
-                        const techItem = document.createElement('div');
-                        techItem.classList.add('card', 'mb-3');
-                        techItem.innerHTML = `
-                            <div class="card-body">
-                                <h5 class="card-title">${tech.name}</h5>
-                                <p class="card-text">Developed in: ${tech.year}</p>
+                .then(technologies => {
+                    const technologyCardsContainer = document.getElementById('technology-cards');
+            
+                    technologies.forEach(technology => {
+                        const technologyCard = document.createElement('div');
+                        technologyCard.classList.add('col-md-4');
+                        technologyCard.innerHTML = `
+                            <div class="card mb-4 shadow-sm">
+                                <img src="images/technology-placeholder.jpg" class="card-img-top" alt="${technology.name}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${technology.name}</h5>
+                                    <p class="card-text">No description available</p>
+                                    <a href="/technologies/${technology.name.toLowerCase().replace(/\s+/g, '')}" class="btn btn-primary">Learn more</a>
+                                </div>
                             </div>
                         `;
-                        technologiesList.appendChild(techItem);
+                        technologyCardsContainer.appendChild(technologyCard);
                     });
                 })
-                .catch(error => console.error('Error fetching technologies:', error));
-        </script>
+                .catch(error => console.error('Error loading technology data:', error));
+        </script>        
     </body>
 </html>
