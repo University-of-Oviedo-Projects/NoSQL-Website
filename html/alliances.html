@@ -56,20 +56,37 @@
                 <h2>Explore the Alliances of World War II</h2>
                 <p>Discover the powerful alliances formed during the war, such as the Axis and Allies, and their role in shaping the outcome of WWII.</p>
             </div>
-    
+        
             <div class="row" id="alliance-cards">
-                <!-- Dynamic alliance cards will be inserted here -->
+                <!-- Static alliance cards with images -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/messi.png" class="card-img-top" alt="Alliance Name">
+                        <div class="card-body">
+                            <!-- Dynamic content will be inserted here -->
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/Allies.png" class="card-img-top" alt="Alliance Name">
+                        <div class="card-body">
+                            <!-- Dynamic content will be inserted here -->
+                        </div>                     
+                    </div>
+                </div>
             </div>
         </div>
-    
+        
         <script>
-            // Fetch alliance data from the server
             fetch('http://localhost:3000/alliances')
                 .then(response => response.json())
                 .then(alliances => {
                     const allianceCardsContainer = document.getElementById('alliance-cards');
-
                     const allianceMap = {};
+        
+                    // Group countries by alliance
                     alliances.forEach(alliance => {
                         if (!allianceMap[alliance.alliance]) {
                             allianceMap[alliance.alliance] = [];
@@ -77,23 +94,64 @@
                         allianceMap[alliance.alliance].push(alliance.country);
                     });
         
+                    const cards = allianceCardsContainer.children;
+                    let index = 0;
+        
                     for (const allianceName in allianceMap) {
+                        if (index >= cards.length) break; 
+        
                         const countries = allianceMap[allianceName];
-                        const allianceCard = document.createElement('div');
-                        allianceCard.classList.add('col-md-4');
-                        allianceCard.innerHTML = `
-                            <div class="card mb-4 shadow-sm">
-                                <img src="images/alliances.jpg" class="card-img-top" alt="${allianceName}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${allianceName}</h5>
-                                    <p class="card-text">Countries in this alliance: ${countries.join(', ')}</p>
-                                </div>
-                            </div>
+                        const card = cards[index];
+                        const cardBody = card.querySelector('.card-body');
+        
+                        cardBody.innerHTML += `
+                            <h5 class="card-title">${allianceName}</h5>
+                            <p class="card-text">${countries.join(', ')}</p>
                         `;
-                        allianceCardsContainer.appendChild(allianceCard);
+        
+                        index++;
                     }
                 })
                 .catch(error => console.error('Error loading alliance data:', error));
-        </script>        
+        </script>   
+        
+        <script>
+            // Information about alliances
+            const alliances = [
+                {
+                    name: "Axis Powers",
+                    description: `
+                        The Axis Powers, formed during World War II, consisted of Germany, Italy, and Japan as the primary nations.
+                        These countries sought territorial expansion and challenged the established order, leading to the outbreak
+                        of global conflict. Other nations, such as Hungary, Romania, and Bulgaria, later joined the Axis alliance.
+                    `
+                },
+                {
+                    name: "Allied Powers",
+                    description: `
+                        The Allied Powers united to oppose the aggressive expansion of the Axis Powers. Key members included the 
+                        United States, the Soviet Union, the United Kingdom, France, and China. Over time, many other countries 
+                        joined the Allies, contributing to their eventual victory through coordinated military and economic efforts.
+                    `
+                }
+            ];
+        
+            // Select the cards and add the alliance information dynamically
+            const allianceCardsContainer = document.getElementById('alliance-cards');
+            const cards = allianceCardsContainer.children; // Select existing cards
+        
+            alliances.forEach((alliance, index) => {
+                if (index >= cards.length) return; // Prevent overflow
+        
+                const card = cards[index];
+                const cardBody = card.querySelector('.card-body');
+        
+                // Insert dynamic content into the card body
+                cardBody.innerHTML += `
+                    <h5 class="card-title">${alliance.name}</h5>
+                    <p class="card-text">${alliance.description}</p>
+                `;
+            });
+        </script>
     </body>
 </html>

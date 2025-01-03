@@ -57,32 +57,59 @@
                 <h2>Key Technologies Developed During World War II</h2>
                 <p>Explore the groundbreaking technologies that shaped warfare during World War II.</p>
             </div>
-    
+        
             <div class="row" id="technology-cards">
-                <!-- Las tarjetas de las tecnologías se insertarán aquí dinámicamente -->
+                <!-- Tarjetas estáticas con imágenes -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/ProyectoManhattan.jpg" class="card-img-top" alt="Technology Name">
+                        <div class="card-body">
+                            <!-- El contenido dinámico se insertará aquí -->
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/Tank.jpg" class="card-img-top" alt="Technology Name">
+                        <div class="card-body">
+                            <!-- El contenido dinámico se insertará aquí -->
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/Aviones.jpg" class="card-img-top" alt="Technology Name">
+                        <div class="card-body">
+                            <!-- El contenido dinámico se insertará aquí -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    
+        
         <script>
             // Fetch technology data from the server
             fetch('http://localhost:3000/technologies')
                 .then(response => response.json())
                 .then(technologies => {
                     const technologyCardsContainer = document.getElementById('technology-cards');
-            
+                    const cards = technologyCardsContainer.children; // Selecciona las tarjetas existentes
+                    let index = 0;
+        
                     technologies.forEach(technology => {
-                        const technologyCard = document.createElement('div');
-                        technologyCard.classList.add('col-md-4');
-                        technologyCard.innerHTML = `
-                            <div class="card mb-4 shadow-sm">
-                                <img src="images/technology-placeholder.jpg" class="card-img-top" alt="${technology.name}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${technology.name}</h5>
-                                    <p class="card-text">No description available</p>
-                                </div>
-                            </div>
+                        if (index >= cards.length) return; // Evita sobrescribir si no hay suficientes tarjetas
+        
+                        const card = cards[index];
+                        const cardBody = card.querySelector('.card-body');
+        
+                        // Inserta contenido dinámico en el cuerpo de la tarjeta
+                        cardBody.innerHTML = `
+                            <h5 class="card-title">${technology.name}</h5>
                         `;
-                        technologyCardsContainer.appendChild(technologyCard);
+        
+                        index++; // Avanza al siguiente índice de tarjeta
                     });
                 })
                 .catch(error => console.error('Error loading technology data:', error));

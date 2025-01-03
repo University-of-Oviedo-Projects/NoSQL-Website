@@ -57,35 +57,58 @@
                 <h2>Key Battles of World War II</h2>
                 <p>Explore the significant battles that determined the outcome of the war.</p>
             </div>
-    
+        
             <div class="row" id="battle-cards">
                 <!-- Dynamic battle cards will be inserted here -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/Stalingrado.jpg" class="card-img-top" alt="Battle Name">
+                        <div class="card-body">
+                            <!-- Dynamic content will go here -->
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/Normandia.jpg" class="card-img-top" alt="Battle Name">
+                        <div class="card-body">
+                            <!-- Dynamic content will go here -->
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/PearlHarbor.jpg" class="card-img-top" alt="Battle Name">
+                        <div class="card-body">
+                            <!-- Dynamic content will go here -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    
+        
         <script>
             // Fetch battle data from the server
             fetch('http://localhost:3000/battles')
                 .then(response => response.json())
                 .then(battles => {
                     const battleCardsContainer = document.getElementById('battle-cards');
-            
-                    battles.forEach(battle => {
-                        const battleCard = document.createElement('div');
-                        battleCard.classList.add('col-md-4');
-                        battleCard.innerHTML = `
-                            <div class="card mb-4 shadow-sm">
-                                <img src="images/battle-placeholder.jpg" class="card-img-top" alt="${battle.name}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${battle.name}</h5>
-                                    <p class="card-text">Year: ${battle.year}</p>
-                                </div>
-                            </div>
+        
+                    // Ensure we are only modifying the card bodies dynamically
+                    battles.forEach((battle, index) => {
+                        const battleCard = battleCardsContainer.children[index];
+                        const cardBody = battleCard.querySelector('.card-body');
+        
+                        // Update the card body content dynamically
+                        cardBody.innerHTML = `
+                            <h5 class="card-title">${battle.name}</h5>
+                            <p class="card-text">Year: ${battle.year.low}</p>
                         `;
-                        battleCardsContainer.appendChild(battleCard);
                     });
                 })
                 .catch(error => console.error('Error loading battle data:', error));
-        </script>        
+        </script>               
     </body>
 </html>

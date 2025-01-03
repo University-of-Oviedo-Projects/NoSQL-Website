@@ -57,35 +57,100 @@
                 <h2>Key Leaders in World War II</h2>
                 <p>Explore the key figures who played significant roles in shaping the course of the war.</p>
             </div>
-    
+        
             <div class="row" id="leader-cards">
-                <!-- Las tarjetas de los líderes se insertarán aquí dinámicamente -->
+                <!-- Tarjetas estáticas con imágenes -->
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/hitler.png" class="card-img-top" alt="Leader Name">
+                        <div class="card-body">
+                            <!-- Contenido dinámico se insertará aquí -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/Tojo.png" class="card-img-top" alt="Leader Name">
+                        <div class="card-body">
+                            <!-- Contenido dinámico se insertará aquí -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/Mussolini.png" class="card-img-top" alt="Leader Name">
+                        <div class="card-body">
+                            <!-- Contenido dinámico se insertará aquí -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/Roosevelt.png" class="card-img-top" alt="Leader Name">
+                        <div class="card-body">
+                            <!-- Contenido dinámico se insertará aquí -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/Yalta.jpg" class="card-img-top" alt="Leader Name">
+                        <div class="card-body">
+                            <!-- Contenido dinámico se insertará aquí -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/Churchill.png" class="card-img-top" alt="Leader Name">
+                        <div class="card-body">
+                            <!-- Contenido dinámico se insertará aquí -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/De-Gaulle.png" class="card-img-top" alt="Leader Name">
+                        <div class="card-body">
+                            <!-- Contenido dinámico se insertará aquí -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="multimedia/Chiang.png" class="card-img-top" alt="Leader Name">
+                        <div class="card-body">
+                            <!-- Contenido dinámico se insertará aquí -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    
+        
         <script>
             // Fetch leader data from the server
             fetch('http://localhost:3000/leaders')
                 .then(response => response.json())
                 .then(leaders => {
                     const leaderCardsContainer = document.getElementById('leader-cards');
-            
+                    const cards = leaderCardsContainer.children; 
+                    let index = 0;
+        
                     leaders.forEach(leader => {
-                        const leaderCard = document.createElement('div');
-                        leaderCard.classList.add('col-md-4');
-                        leaderCard.innerHTML = `
-                            <div class="card mb-4 shadow-sm">
-                                <img src="images/leader-placeholder.jpg" class="card-img-top" alt="${leader.name}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${leader.name}</h5>
-                                    <p class="card-text">Born: ${leader.birthYear}</p>
-                                </div>
-                            </div>
+                        if (index >= cards.length) return; 
+        
+                        const card = cards[index];
+                        const cardBody = card.querySelector('.card-body');
+        
+                        cardBody.innerHTML = `
+                            <h5 class="card-title">${leader.name}</h5>
+                            <p class="card-text">Born: ${leader.birthYear.low || 'Unknown'}</p>
                         `;
-                        leaderCardsContainer.appendChild(leaderCard);
+        
+                        index++; 
                     });
                 })
                 .catch(error => console.error('Error loading leader data:', error));
-        </script>        
+        </script>                
     </body>
 </html>

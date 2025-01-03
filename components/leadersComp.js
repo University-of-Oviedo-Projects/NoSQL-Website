@@ -17,7 +17,7 @@ const session = require('./neo4jConnection');
  * @param {Object} req - The HTTP request object (unused).
  * @param {Object} res - The HTTP response object used to send back the retrieved data or an error message.
  */
-router.get('/leaders', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
       // executeQuery a Cypher query in Neo4j to match leaders.
       const result = await session.executeQuery(`
