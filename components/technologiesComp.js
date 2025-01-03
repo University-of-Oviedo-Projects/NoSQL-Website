@@ -11,7 +11,7 @@
 
 const express = require('express');
 const router = express.Router();
-const session = require('./neo4jConnection');  
+const { getDriver } = require('./neo4jConfigComp');
 
 /**
  * @param {Object} req - The HTTP request object (unused).
@@ -19,8 +19,11 @@ const session = require('./neo4jConnection');
  */
 router.get('/', async (req, res) => {
   try {
+    const driver = getDriver();
+    const session = driver.session();
+
     // executeQuery a Cypher query in Neo4j to match technologies.
-    const result = await session.executeQuery(`
+    const result = await driver.executeQuery(`
       MATCH (t:Technology) RETURN t.name AS name
     `, {},
     { database: 'neo4j' });
@@ -28,6 +31,8 @@ router.get('/', async (req, res) => {
     const technologies = result.records.map(record => ({
       name: record.get('name')
     }));
+
+    await session.close();
 
     // Response with the JSON representation of the retrieved data.
     res.json(technologies);

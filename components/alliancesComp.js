@@ -11,7 +11,7 @@
 
 const express = require('express');
 const router = express.Router();
-const session = require('./neo4jConnection');  
+const { getDriver } = require('./neo4jConfigComp');   
 
 /**
  * @param {Object} req - The HTTP request object (unused).
@@ -19,17 +19,20 @@ const session = require('./neo4jConnection');
  */
 router.get('/', async (req, res) => {
   try {
-    // Run a Cypher query in Neo4j to match countries and their alliances.
-    const result = await session.executeQuery(`
-      MATCH (c:Country)-[:BELONGS_TO]->(a:Aliance)
-      RETURN c.name AS country, a.name AS alliance`, 
-      {},
-      { database: 'neo4j' });
+    const driver = getDriver();
+    const session = driver.session();
+
+    const result = await session.run(`
+      MATCH (c:Country)-[:BELONGS_TO]->(a:Alliance)
+      RETURN c.name AS country, a.name AS alliance
+    `);
 
     const alliances = result.records.map(record => ({
       country: record.get('country'),
       alliance: record.get('alliance')
     }));
+
+    await session.close();
 
     // Response with the JSON representation of the retrieved data.
     res.json(alliances);

@@ -11,7 +11,7 @@
 
 const express = require('express');
 const router = express.Router();
-const session = require('./neo4jConnection'); 
+const { getDriver } = require('./neo4jConfigComp'); 
 
 /**
  * @param {Object} req - The HTTP request object (unused).
@@ -19,8 +19,11 @@ const session = require('./neo4jConnection');
  */
 router.get('/', async (req, res) => {
   try {
+    const driver = getDriver();
+    const session = driver.session();
+
     // executeQuery a Cypher query in Neo4j to match battles.
-    const result = await session.executeQuery(`
+    const result = await driver.executeQuery(`
       MATCH (c:Country) RETURN c.name AS name, c.continent AS continent`, 
       {},
       { database: 'neo4j' });
@@ -29,6 +32,8 @@ router.get('/', async (req, res) => {
       name: record.get('name'),
       continent: record.get('continent')
     }));
+
+    await session.close();
 
     // Response with the JSON representation of the retrieved data.
     res.json(countries);
