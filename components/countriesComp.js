@@ -19,10 +19,11 @@ const session = require('./neo4jConnection');
  */
 router.get('/', async (req, res) => {
   try {
-    // Run a Cypher query in Neo4j to match battles.
-    const result = await session.run(`
-      MATCH (c:Country) RETURN c.name AS name, c.continent AS continent
-    `);
+    // executeQuery a Cypher query in Neo4j to match battles.
+    const result = await session.executeQuery(`
+      MATCH (c:Country) RETURN c.name AS name, c.continent AS continent`, 
+      {},
+      { database: 'neo4j' });
 
     const countries = result.records.map(record => ({
       name: record.get('name'),
@@ -33,7 +34,7 @@ router.get('/', async (req, res) => {
     res.json(countries);
 
   } catch (error) {
-    res.status(500).send('Error al obtener los países');
+    res.status(500).send('Error obtaining countries');
   }
 });
 

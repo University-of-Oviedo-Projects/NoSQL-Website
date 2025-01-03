@@ -19,10 +19,11 @@ const session = require('./neo4jConnection');
  */
 router.get('/', async (req, res) => {
   try {
-    // Run a Cypher query in Neo4j to match battles.
-    const result = await session.run(`
-      MATCH (b:Battle) RETURN b.name AS name, b.year AS year
-    `);
+    // executeQuery a Cypher query in Neo4j to match battles.
+    const result = await session.executeQuery(`
+      MATCH (b:Battle) RETURN b.name AS name, b.year AS year`,
+      {},
+      { database: 'neo4j' });
 
     const battles = result.records.map(record => ({
       name: record.get('name'),

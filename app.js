@@ -22,9 +22,13 @@
 
 const express = require('express'); // Import the Express framework for building web servers.
 const path = require('path'); // Node.js module for working with file paths.
+const cors = require('cors');  
 
 const port = 3000;
 const app = express();
+
+// Import the CORS module to enable Cross-Origin Resource Sharing.
+app.use(cors()); 
 
 /**
  * Import routes from external modules.

@@ -65,7 +65,7 @@
     
         <script>
             // Fetch leader data from the server
-            fetch('/leaders')
+            fetch('http://localhost:3000/leaders')
                 .then(response => response.json())
                 .then(leaders => {
                     const leaderCardsContainer = document.getElementById('leader-cards');
@@ -79,7 +79,6 @@
                                 <div class="card-body">
                                     <h5 class="card-title">${leader.name}</h5>
                                     <p class="card-text">Born: ${leader.birthYear}</p>
-                                    <a href="/leaders/${leader.name.toLowerCase().replace(/\s+/g, '')}" class="btn btn-primary">Learn more</a>
                                 </div>
                             </div>
                         `;

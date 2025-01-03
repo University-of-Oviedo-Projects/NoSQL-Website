@@ -65,7 +65,7 @@
     
         <script>
             // Fetch technology data from the server
-            fetch('/technologies')
+            fetch('http://localhost:3000/technologies')
                 .then(response => response.json())
                 .then(technologies => {
                     const technologyCardsContainer = document.getElementById('technology-cards');
@@ -79,7 +79,6 @@
                                 <div class="card-body">
                                     <h5 class="card-title">${technology.name}</h5>
                                     <p class="card-text">No description available</p>
-                                    <a href="/technologies/${technology.name.toLowerCase().replace(/\s+/g, '')}" class="btn btn-primary">Learn more</a>
                                 </div>
                             </div>
                         `;

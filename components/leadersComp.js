@@ -19,10 +19,11 @@ const session = require('./neo4jConnection');
  */
 router.get('/leaders', async (req, res) => {
     try {
-      // Run a Cypher query in Neo4j to match leaders.
-      const result = await session.run(`
-        MATCH (l:Leader) RETURN l.name, l.birth_year
-      `);
+      // executeQuery a Cypher query in Neo4j to match leaders.
+      const result = await session.executeQuery(`
+        MATCH (l:Leader) RETURN l.name, l.birth_year`, 
+        {},
+        { database: 'neo4j' });
   
       const leaders = result.records.map(record => ({
         name: record.get('l.name'),
@@ -32,7 +33,7 @@ router.get('/leaders', async (req, res) => {
       // Response with the JSON representation of the retrieved data.
       res.json(leaders);
 
-    } catch (error) { res.status(500).send('Error al obtener los líderes'); }
+    } catch (error) { res.status(500).send('Error obtaining leaders'); }
 });
 
 // Export the router to make it available to other modules.

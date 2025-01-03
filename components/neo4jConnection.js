@@ -24,16 +24,7 @@ const driver = neo4j.driver(
 );
 
 /**
- * Create a session instance for interacting with the database.
- * 
- * @description A session is used to run Cypher queries against the Neo4j database.
- * 
- * @see {@link https://neo4j.com/docs/javascript-manual/current/session-api/}
- */
-const session = driver.session();
-
-/**
  * Export the session instance.
  */
-module.exports = session;
+module.exports = driver;
 

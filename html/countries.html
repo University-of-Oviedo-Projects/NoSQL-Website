@@ -65,7 +65,7 @@
     
         <script>
             // Fetch country data from the server
-            fetch('/countries')
+            fetch('http://localhost:3000/countries')
                 .then(response => response.json())
                 .then(countries => {
                     const countryCardsContainer = document.getElementById('country-cards');
@@ -79,7 +79,6 @@
                                 <div class="card-body">
                                     <h5 class="card-title">${country.name}</h5>
                                     <p class="card-text">Continent: ${country.continent}</p>
-                                    <a href="/countries/${country.name.toLowerCase().replace(/\s+/g, '')}" class="btn btn-primary">Learn more</a>
                                 </div>
                             </div>
                         `;

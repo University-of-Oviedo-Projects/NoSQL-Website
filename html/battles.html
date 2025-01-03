@@ -65,7 +65,7 @@
     
         <script>
             // Fetch battle data from the server
-            fetch('/battles')
+            fetch('http://localhost:3000/battles')
                 .then(response => response.json())
                 .then(battles => {
                     const battleCardsContainer = document.getElementById('battle-cards');
@@ -79,7 +79,6 @@
                                 <div class="card-body">
                                     <h5 class="card-title">${battle.name}</h5>
                                     <p class="card-text">Year: ${battle.year}</p>
-                                    <a href="/battles/${battle.name.toLowerCase().replace(/\s+/g, '')}" class="btn btn-primary">Learn more</a>
                                 </div>
                             </div>
                         `;

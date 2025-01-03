@@ -64,7 +64,7 @@
     
         <script>
             // Fetch alliance data from the server
-            fetch('/alliances')
+            fetch('http://localhost:3000/alliances')
                 .then(response => response.json())
                 .then(alliances => {
                     const allianceCardsContainer = document.getElementById('alliance-cards');
@@ -87,7 +87,6 @@
                                 <div class="card-body">
                                     <h5 class="card-title">${allianceName}</h5>
                                     <p class="card-text">Countries in this alliance: ${countries.join(', ')}</p>
-                                    <a href="/alliances/${allianceName.toLowerCase().replace(/\s+/g, '')}" class="btn btn-primary">Learn more</a>
                                 </div>
                             </div>
                         `;

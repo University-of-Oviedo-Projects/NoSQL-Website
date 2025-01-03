@@ -19,10 +19,11 @@ const session = require('./neo4jConnection');
  */
 router.get('/', async (req, res) => {
   try {
-    // Run a Cypher query in Neo4j to match technologies.
-    const result = await session.run(`
+    // executeQuery a Cypher query in Neo4j to match technologies.
+    const result = await session.executeQuery(`
       MATCH (t:Technology) RETURN t.name AS name
-    `);
+    `, {},
+    { database: 'neo4j' });
 
     const technologies = result.records.map(record => ({
       name: record.get('name')
@@ -32,7 +33,7 @@ router.get('/', async (req, res) => {
     res.json(technologies);
 
   } catch (error) {
-    res.status(500).send('Error al obtener las tecnologías');
+    res.status(500).send('Error obtaining technologies');
   }
 });
 
