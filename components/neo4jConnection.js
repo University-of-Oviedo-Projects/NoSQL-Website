@@ -9,17 +9,18 @@
  */
 
 const neo4j = require('neo4j-driver'); // Import the official Neo4j driver for JavaScript.
+require('dotenv').config()
 
 /**
  * Create a Neo4j driver instance.
  * 
  * @description The driver connects to the Neo4j database instance using the Bolt protocol.
- * - `bolt://localhost:XXXX`: The database's URI. Replace `XXXX` with the appropriate port.
+ * - `neo4j+s://<tu-instancia>.databases.neo4j.io`: The database's URI.
  * - `neo4j.auth.basic('neo4j', 'password')`: Authentication using the database's username and password.
  */
 const driver = neo4j.driver(
-  'bolt://localhost:XXXX', // Replace XXXX with the correct Neo4j port (default: 7687).
-  neo4j.auth.basic('neo4j', 'password') // Replace with your database username and password.
+  process.env.NEO4J_URL, 
+  neo4j.auth.basic(process.env.USER, process.env.PASSWORD) 
 );
 
 /**
