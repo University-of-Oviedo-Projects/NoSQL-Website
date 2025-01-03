@@ -21,14 +21,14 @@ Welcome to the World War II NoSQL Website! This project is a comprehensive web a
 
 ## Technologies Used
 
-- **Frontend**: HTML, CSS, Bootstrap
+- **Frontend**: HTML, CSS, GASP, JavaScript
 - **Backend**: Node.js
 - **Database**: Neo4j
-- **Other**: JavaScript, JQuery
 
 ## Installation
 
-To run this project locally, follow these steps:
+This is not mandatory, if you only want to visit the website, follow de URL.
+If you want to run this project locally, follow these steps:
 
 1. **Clone the repository**:
     ```sh
