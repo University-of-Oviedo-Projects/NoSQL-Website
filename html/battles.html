@@ -11,8 +11,8 @@
 
         <link rel="preload" href="css/global.css" as="style">
         <link rel="stylesheet" href="css/global.css">
-        <link rel="preload" href="css/index.css" as="style">
-        <link rel="stylesheet" href="css/index.css">
+        <link rel="preload" href="../css/cards.css" as="style">
+        <link rel="stylesheet" href="../css/cards.css">
 
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -90,25 +90,37 @@
         </div>
         
         <script>
+            const battleDescriptions = [
+                "The Battle of Stalingrad was a brutal confrontation between Nazi Germany and the Soviet Union during WWII. It marked the turning of the tide in favor of the Allies in the Eastern Front.",
+                "The Normandy Landings, also known as D-Day, were a pivotal moment in WWII when Allied forces landed in France to begin the liberation of Western Europe from Nazi occupation.",
+                "The Attack on Pearl Harbor was a surprise military strike by the Japanese Navy against the United States naval base in Hawaii, leading to the US entering WWII."
+            ];
+
             // Fetch battle data from the server
             fetch('http://localhost:3000/battles')
                 .then(response => response.json())
                 .then(battles => {
                     const battleCardsContainer = document.getElementById('battle-cards');
-        
-                    // Ensure we are only modifying the card bodies dynamically
-                    battles.forEach((battle, index) => {
-                        const battleCard = battleCardsContainer.children[index];
-                        const cardBody = battleCard.querySelector('.card-body');
-        
-                        // Update the card body content dynamically
+                    const cards = battleCardsContainer.children; 
+                    let index = 0;
+
+                    battles.forEach(battle => {
+                        if (index >= cards.length) return; 
+                        const description = battleDescriptions[index] || "Descripción no disponible.";
+            
+                        const card = cards[index];
+                        const cardBody = card.querySelector('.card-body');
+            
                         cardBody.innerHTML = `
                             <h5 class="card-title">${battle.name}</h5>
                             <p class="card-text">Year: ${battle.year.low}</p>
+                            <p class="card-text">${description}</p> <!-- Descripción añadida -->
                         `;
+            
+                        index++; 
                     });
                 })
                 .catch(error => console.error('Error loading battle data:', error));
-        </script>               
+        </script> 
     </body>
 </html>

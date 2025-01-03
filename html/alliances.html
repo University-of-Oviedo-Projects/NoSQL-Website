@@ -8,13 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>World War II - Alliances</title>
 
-        <link rel="preload" href="css/global.css" as="style">
-        <link rel="stylesheet" href="css/global.css">
-        <link rel="preload" href="css/index.css" as="style">
-        <link rel="stylesheet" href="css/index.css">
+        <link rel="preload" href="../css/global.css" as="style">
+        <link rel="stylesheet" href="../css/global.css">
+        <link rel="preload" href="../css/cards.css" as="style">
+        <link rel="stylesheet" href="../css/cards.css">
 
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </head>
@@ -59,16 +58,15 @@
         
             <div class="row" id="alliance-cards">
                 <!-- Static alliance cards with images -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="card mb-4 shadow-sm">
                         <img src="multimedia/messi.png" class="card-img-top" alt="Alliance Name">
                         <div class="card-body">
                             <!-- Dynamic content will be inserted here -->
                         </div>
-                        
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="card mb-4 shadow-sm">
                         <img src="multimedia/Allies.png" class="card-img-top" alt="Alliance Name">
                         <div class="card-body">
@@ -105,7 +103,7 @@
                         const cardBody = card.querySelector('.card-body');
         
                         cardBody.innerHTML += `
-                            <h5 class="card-title">${allianceName}</h5>
+                            <h5 class="card-title">${allianceName} Countries</h5>
                             <p class="card-text">${countries.join(', ')}</p>
                         `;
         

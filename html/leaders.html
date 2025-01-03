@@ -11,11 +11,10 @@
 
         <link rel="preload" href="css/global.css" as="style">
         <link rel="stylesheet" href="css/global.css">
-        <link rel="preload" href="css/index.css" as="style">
-        <link rel="stylesheet" href="css/index.css">
+        <link rel="preload" href="../css/cards.css" as="style">
+        <link rel="stylesheet" href="../css/cards.css">
 
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </head>
@@ -58,9 +57,9 @@
                 <p>Explore the key figures who played significant roles in shaping the course of the war.</p>
             </div>
         
-            <div class="row" id="leader-cards">
-                <!-- Tarjetas estáticas con imágenes -->
-                <div class="col-md-4">
+            <div class="row" id="leader-cards-row1">
+                <!-- Primera fila de 4 tarjetas -->
+                <div class="col-md-3">
                     <div class="card mb-4 shadow-sm">
                         <img src="multimedia/hitler.png" class="card-img-top" alt="Leader Name">
                         <div class="card-body">
@@ -68,7 +67,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card mb-4 shadow-sm">
                         <img src="multimedia/Tojo.png" class="card-img-top" alt="Leader Name">
                         <div class="card-body">
@@ -76,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card mb-4 shadow-sm">
                         <img src="multimedia/Mussolini.png" class="card-img-top" alt="Leader Name">
                         <div class="card-body">
@@ -84,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card mb-4 shadow-sm">
                         <img src="multimedia/Roosevelt.png" class="card-img-top" alt="Leader Name">
                         <div class="card-body">
@@ -92,7 +91,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+            </div>
+        
+            <!-- Segunda fila de 4 tarjetas -->
+            <div class="row" id="leader-cards-row2">
+                <div class="col-md-3">
                     <div class="card mb-4 shadow-sm">
                         <img src="multimedia/Yalta.jpg" class="card-img-top" alt="Leader Name">
                         <div class="card-body">
@@ -100,7 +103,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card mb-4 shadow-sm">
                         <img src="multimedia/Churchill.png" class="card-img-top" alt="Leader Name">
                         <div class="card-body">
@@ -108,7 +111,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card mb-4 shadow-sm">
                         <img src="multimedia/De-Gaulle.png" class="card-img-top" alt="Leader Name">
                         <div class="card-body">
@@ -116,7 +119,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card mb-4 shadow-sm">
                         <img src="multimedia/Chiang.png" class="card-img-top" alt="Leader Name">
                         <div class="card-body">
@@ -128,29 +131,46 @@
         </div>
         
         <script>
+            const leaderDescriptions = [
+                "Leader of Nazi Germany, whose aggressive foreign policy led to the outbreak of WWII and whose ideology caused immense destruction and loss of life.",
+                "Prime Minister of Japan during most of WWII, responsible for Japan's military expansion and war crimes in Asia and the Pacific.",
+                "Dictator of Italy, one of the founders of fascism, and an ally of Hitler during much of the war.",
+                "President of the United States during the majority of WWII, guiding the country through the Great Depression and the war.",
+                "Leader of the Soviet Union, playing a crucial role in the defeat of Nazi Germany while also leading the USSR through harsh internal purges.",
+                "Prime Minister of the United Kingdom, known for his leadership and speeches that rallied the British during the darkest days of the war.",
+                "Leader of Free France, organizing resistance against Nazi occupation and playing a pivotal role in the post-war rebuilding of Europe.",
+                "Leader of the Republic of China during the war, resisting Japanese occupation and working with the Allies to help defeat Japan."
+            ];
+        
             // Fetch leader data from the server
             fetch('http://localhost:3000/leaders')
                 .then(response => response.json())
                 .then(leaders => {
-                    const leaderCardsContainer = document.getElementById('leader-cards');
-                    const cards = leaderCardsContainer.children; 
+                    const leaderCardsRow1 = document.getElementById('leader-cards-row1');
+                    const leaderCardsRow2 = document.getElementById('leader-cards-row2');
+                    
+                    // Seleccionar todas las tarjetas de ambas filas
+                    const allCards = [...leaderCardsRow1.children, ...leaderCardsRow2.children]; 
                     let index = 0;
         
                     leaders.forEach(leader => {
-                        if (index >= cards.length) return; 
-        
-                        const card = cards[index];
+                        if (index >= allCards.length) return; // Asegurarse de no exceder el número de tarjetas disponibles
+                        
+                        const description = leaderDescriptions[index] || "Descripción no disponible.";
+                        
+                        const card = allCards[index];
                         const cardBody = card.querySelector('.card-body');
         
                         cardBody.innerHTML = `
                             <h5 class="card-title">${leader.name}</h5>
                             <p class="card-text">Born: ${leader.birthYear.low || 'Unknown'}</p>
+                            <p class="card-text">${description}</p>
                         `;
-        
-                        index++; 
+                        
+                        index++; // Avanzar al siguiente índice de tarjeta
                     });
                 })
                 .catch(error => console.error('Error loading leader data:', error));
-        </script>                
+        </script>              
     </body>
 </html>

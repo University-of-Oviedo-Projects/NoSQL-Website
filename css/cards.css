@@ -1,0 +1,105 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; 
+    color: #212529; 
+}
+
+/* Header styling */
+header {
+    background: #343a40; 
+    color: #ffffff; 
+    padding: 1rem auto;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin: auto;
+}
+
+header nav a {
+    color: #ffffff; 
+    transition: color 0.3s ease-in-out;
+}
+
+header nav a:hover {
+    color: #17a2b8; 
+}
+
+/* Card container */
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1.2rem;
+}
+
+h2 {
+    color: #343a40; 
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* Card styling */
+.card {
+    border: none; 
+    border-radius: 1rem; 
+    overflow: hidden;
+    background-color: #ffffff; 
+    box-shadow: 0 0.6rem 1.01rem rgba(0, 0, 0, 0.1); 
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.03); /* Slight zoom on hover */
+    box-shadow: 0 0.6rem 1.01rem #00000033; /* Stronger shadow */
+}
+
+/* Card images */
+.card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-bottom: 0.4rem solid #17a2b8; /* Cyan border below image */
+}
+
+/* Card body */
+.card-body {
+    padding: 1.5rem;
+    text-align: center; /* Center-align text */
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #17a2b8; /* Cyan title */
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #6c757d; /* Grey text for the description */
+}
+
+/* Add spacing between cards */
+.card + .card {
+    margin-top: 20px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+}

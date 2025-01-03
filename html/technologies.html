@@ -11,11 +11,10 @@
 
         <link rel="preload" href="css/global.css" as="style">
         <link rel="stylesheet" href="css/global.css">
-        <link rel="preload" href="css/index.css" as="style">
-        <link rel="stylesheet" href="css/index.css">
+        <link rel="preload" href="../css/cards.css" as="style">
+        <link rel="stylesheet" href="../css/cards.css">
 
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </head>
@@ -90,6 +89,12 @@
         </div>
         
         <script>
+            const technologyDescriptions = [
+                "The Atomic Bomb was a revolutionary weapon developed during WWII. Its immense destructive power led to the end of the war in the Pacific after its use on the cities of Hiroshima and Nagasaki.",
+                "Tanks were heavily used in WWII, revolutionizing land warfare. With their armored protection and powerful armaments, they became a symbol of modern combat, especially in the battles on the Eastern and Western Fronts.",
+                "Fighter Jets became a significant factor in aerial warfare during WWII, greatly increasing the speed and effectiveness of air combat. They were a key technological advantage, notably in the Battle of Britain and other air campaigns."
+            ];
+
             // Fetch technology data from the server
             fetch('http://localhost:3000/technologies')
                 .then(response => response.json())
@@ -97,18 +102,21 @@
                     const technologyCardsContainer = document.getElementById('technology-cards');
                     const cards = technologyCardsContainer.children; // Selecciona las tarjetas existentes
                     let index = 0;
-        
+
                     technologies.forEach(technology => {
                         if (index >= cards.length) return; // Evita sobrescribir si no hay suficientes tarjetas
-        
+
+                        const description = technologyDescriptions[index] || "Descripción no disponible.";
+                
                         const card = cards[index];
                         const cardBody = card.querySelector('.card-body');
-        
+                
                         // Inserta contenido dinámico en el cuerpo de la tarjeta
                         cardBody.innerHTML = `
                             <h5 class="card-title">${technology.name}</h5>
+                            <p class="card-text">${description}</p>
                         `;
-        
+                
                         index++; // Avanza al siguiente índice de tarjeta
                     });
                 })

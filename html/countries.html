@@ -11,8 +11,8 @@
 
         <link rel="preload" href="css/global.css" as="style">
         <link rel="stylesheet" href="css/global.css">
-        <link rel="preload" href="css/index.css" as="style">
-        <link rel="stylesheet" href="css/index.css">
+        <link rel="preload" href="../css/cards.css" as="style">
+        <link rel="stylesheet" href="../css/cards.css">
 
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -58,30 +58,63 @@
                 <p>Explore the countries that participated in the war, both in the Axis and Allies.</p>
             </div>
     
-            <div class="row" id="country-cards">
-                <!-- Dynamic country cards will be inserted here -->
+            <!-- Primera fila de 4 tarjetas -->
+            <div class="row" id="country-cards-row1">
+                <!-- Las tarjetas de países se insertarán aquí dinámicamente -->
+            </div>
+
+            <!-- Segunda fila de 4 tarjetas -->
+            <div class="row" id="country-cards-row2">
+                <!-- Las tarjetas de países se insertarán aquí dinámicamente -->
             </div>
         </div>
     
         <script>
+            const countryDescriptions = [
+                "Germany participated as a member of the Axis Powers, led by Adolf Hitler, and was responsible for many of the war's major battles and atrocities.",
+                "Japan was a key Axis Power, attacking several countries across Asia and the Pacific, leading to the United States' involvement in the war.",
+                "Italy, under Benito Mussolini, was part of the Axis Powers, but eventually switched sides to the Allies in 1943.",
+                "The United States entered the war in 1941 after the attack on Pearl Harbor, playing a crucial role in the defeat of the Axis Powers.",
+                "The Soviet Union, led by Joseph Stalin, fought alongside the Allies after being invaded by Germany, and played a critical role in the defeat of Nazi forces.",
+                "France, initially invaded by Germany, became part of the Allied forces, with the Free French Forces led by Charles de Gaulle.",
+                "The United Kingdom was one of the main Allies, resisting Germany's attacks, including the Battle of Britain, and later contributing to the defeat of the Axis Powers.",
+                "China fought against Japanese invasion for much of the war, contributing significantly to the defeat of Japan in the Pacific theater."
+            ];
+
             // Fetch country data from the server
             fetch('http://localhost:3000/countries')
                 .then(response => response.json())
                 .then(countries => {
-                    const countryCardsContainer = document.getElementById('country-cards');
-            
+                    const countryCardsRow1 = document.getElementById('country-cards-row1');
+                    const countryCardsRow2 = document.getElementById('country-cards-row2');
+                    
+                    let index = 0;
+
                     countries.forEach(country => {
+                        if (index >= 8) return; // Limitar a 8 países para ajustarse a las 2 filas
+
+                        const description = countryDescriptions[index] || "Descripción no disponible.";
                         const countryCard = document.createElement('div');
-                        countryCard.classList.add('col-md-4');
+                        countryCard.classList.add('col-md-3');  // 4 columnas por fila (col-md-3)
+
                         countryCard.innerHTML = `
                             <div class="card mb-4 shadow-sm">
                                 <div class="card-body">
                                     <h5 class="card-title">${country.name}</h5>
                                     <p class="card-text">Continent: ${country.continent}</p>
+                                    <p class="card-text">${description}</p>
                                 </div>
                             </div>
                         `;
-                        countryCardsContainer.appendChild(countryCard);
+
+                        // Distribuir las tarjetas entre las dos filas
+                        if (index < 4) {
+                            countryCardsRow1.appendChild(countryCard); // Primera fila
+                        } else {
+                            countryCardsRow2.appendChild(countryCard); // Segunda fila
+                        }
+
+                        index++;  // Incrementar índice
                     });
                 })
                 .catch(error => console.error('Error loading country data:', error));
