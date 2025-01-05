@@ -11,7 +11,7 @@ async function checkConnection() {
         if (!response.ok) {
             console.log(`Response not OK: ${response.status}`);
             console.error('Unexpected error:', await response.json());
-            window.location.href = 'https://github.com/adrianmfuentes/NoSQL-Website/';
+            window.location.href = 'https://adrianmfuentes.github.io/NoSQL-Website/index.html';
         } else {
             const data = await response.json();
             console.log('Response Data:', data);
@@ -19,7 +19,7 @@ async function checkConnection() {
 
     } catch (error) {
         console.error('Error when connecting:', error);
-        window.location.href = 'https://github.com/adrianmfuentes/NoSQL-Website/'; 
+        window.location.href = 'https://adrianmfuentes.github.io/NoSQL-Website/index.html'; 
     }
 }
 
