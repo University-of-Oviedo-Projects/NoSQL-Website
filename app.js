@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 
 const corsOptions = {
-  origin: 'https://adrianmfuentes.github.io/NoSQL-Website/', // The frontend URL
+  origin: 'https://adrianmfuentes.github.io', // The frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // The HTTP methods allowed
   credentials: true, // Enable credentials
 };
