@@ -1,6 +1,6 @@
 async function checkConnection() {
     try {
-        const response = await fetch('http://localhost:3000/config', {
+        const response = await fetch('https://nosql-website.onrender.com/config', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
