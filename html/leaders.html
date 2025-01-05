@@ -147,7 +147,7 @@
             ];
         
             // Fetch leader data from the server
-            fetch('http://localhost:3000/leaders')
+            fetch('https://nosql-website.onrender.com/leaders')
                 .then(response => response.json())
                 .then(leaders => {
                     const leaderCardsRow1 = document.getElementById('leader-cards-row1');

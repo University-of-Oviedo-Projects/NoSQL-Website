@@ -101,7 +101,7 @@
             ];
 
             // Fetch battle data from the server
-            fetch('http://localhost:3000/battles')
+            fetch('https://nosql-website.onrender.com/battles')
                 .then(response => response.json())
                 .then(battles => {
                     const battleCardsContainer = document.getElementById('battle-cards');

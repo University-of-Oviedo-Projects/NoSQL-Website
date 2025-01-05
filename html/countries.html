@@ -86,7 +86,7 @@
             ];
 
             // Fetch country data from the server
-            fetch('http://localhost:3000/countries')
+            fetch('https://nosql-website.onrender.com/countries')
                 .then(response => response.json())
                 .then(countries => {
                     const countryCardsRow1 = document.getElementById('country-cards-row1');
