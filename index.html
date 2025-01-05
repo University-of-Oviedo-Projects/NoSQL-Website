@@ -67,6 +67,8 @@
         <script>
             async function saveConfig(event) {
                 event.preventDefault();
+                console.log('Guardando configuración...');
+                
                 const url = document.getElementById('neo4j-url').value;
                 const user = document.getElementById('neo4j-user').value;
                 const password = document.getElementById('neo4j-password').value;
