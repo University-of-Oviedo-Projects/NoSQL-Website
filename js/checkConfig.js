@@ -23,5 +23,4 @@ async function checkConnection() {
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', checkConnection);
