@@ -8,9 +8,15 @@ h1, h2 {
 }
 
 header {
-    padding: 20px 0;
+    padding: 2rem 0;
 }
 
 header .navbar {
     background-color: #343a40;
+}
+
+@media (max-width: 380px) {
+    #header-h1-display-4 {
+        font-size: 2rem;
+    }
 }
