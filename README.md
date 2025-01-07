@@ -11,6 +11,7 @@ Welcome to the World War II NoSQL Website! This project is a comprehensive web a
 - [Project Structure](#project-structure)
 - [License](#license)
 
+
 ## Features
 
 - **Countries**: Explore the countries that participated in World War II, including the Axis and Allied powers.
@@ -19,11 +20,13 @@ Welcome to the World War II NoSQL Website! This project is a comprehensive web a
 - **Technologies**: Explore the groundbreaking technologies developed during World War II.
 - **Alliances**: Understand the powerful alliances formed during the war.
 
+
 ## Technologies Used
 
 - **Frontend**: HTML, CSS, GASP, JavaScript
 - **Backend**: Node.js
 - **Database**: Neo4j
+
 
 ## Installation
 
@@ -42,26 +45,22 @@ If you want to run this project locally, follow these steps:
     ```
 
 3. **Set up Neo4j**:
-    - Ensure you have Neo4j installed and running.
-
-    - Update the connection details in :
-      ```javascript
-      const driver = neo4j.driver(
-        'bolt://localhost:XXXX',  
-        neo4j.auth.basic('neo4j', 'password')  
-      );
-      ```
+    - Ensure you have an aura instance of Neo4j installed and running.
 
 4. **Start the server**:
     ```sh
     node app.js
     ```
 
+
 ## Usage
+
+- Enter the credentials of your aura instance.
 - Navigate through the website using the navigation bar.
 - Click on the different sections (Countries, Leaders, Battles, Technologies, Alliances) to explore detailed information.
 - The data is dynamically fetched from the Neo4j database and displayed on the respective pages.
 
 
 ## License
+
 This project is licensed under the MIT License. See the  file for details.
