@@ -64,3 +64,8 @@ If you want to run this project locally, follow these steps:
 ## License
 
 This project is licensed under the MIT License. See the  file for details.
+
+
+# Disclaimer
+
+This was a project for the Information Repositories course of the University of Oviedo. The mark obtained was a 10 over 10 possible points.
